@@ -99,7 +99,7 @@ export default function MarketplaceSDKComponent() {
           status: "info",
           duration: 5000,
           isClosable: true,
-          position: "top-right",
+          position: "bottom-right",
         });
       } else if (result.success) {
         toast({
@@ -108,7 +108,7 @@ export default function MarketplaceSDKComponent() {
           status: "success",
           duration: 5000,
           isClosable: true,
-          position: "top-right",
+          position: "bottom-right",
         });
       } else {
         toast({
@@ -117,7 +117,7 @@ export default function MarketplaceSDKComponent() {
           status: "error",
           duration: 5000,
           isClosable: true,
-          position: "top-right",
+          position: "bottom-right",
         });
       }
     });
