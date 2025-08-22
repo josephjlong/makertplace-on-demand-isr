@@ -1,18 +1,23 @@
 'use server';
 
+import { getRenderingHost } from "@/lib/utils/renderingHost";
+
 export async function triggerRevalidation({ language, site, isrPath }: { language: string; site: string; isrPath: string })  {
-  const siteURL = process.env.NEXT_PUBLIC_SITE_URL;
-  const secret = process.env.REVALIDATE_SECRET;
+  const renderingHost = getRenderingHost(site);
 
-  const res = await fetch(`${siteURL}/api/revalidate-path?secret=${secret}&path=/${language}/_site_${site}${isrPath}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store',
-  });
-
-  console.log(`${siteURL}/api/revalidate-path?secret=${secret}&path=/${language}/_site_${site}${isrPath}`);
+  let res;
+  try {
+    res = await fetch(`${renderingHost?.url}/api/revalidate-path?secret=${renderingHost?.revalidateSecret}&path=/${language}/_site_${site}${isrPath}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
+  } catch (error) {
+    console.error('Error during revalidation fetch:', error);
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
+  }
 
   if (!res.ok) {
     console.log(`Failed to revalidate: ${res.statusText}`);

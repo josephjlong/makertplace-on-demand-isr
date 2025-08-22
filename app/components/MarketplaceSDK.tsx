@@ -6,6 +6,7 @@ import { XMC } from "@sitecore-marketplace-sdk/xmc";
 import { useTransition } from "react";
 import { triggerRevalidation } from "@/lib/actions/revalidate";
 import { Box, Heading, Button, Stack, Text, useToast } from "@chakra-ui/react";
+import { getRenderingHost } from "@/lib/utils/renderingHost";
 
 const defaultHostURL = "https://pages.sitecorecloud.io";
 
@@ -137,28 +138,8 @@ export default function MarketplaceSDKComponent() {
   const parts = path.split(site);
   const isrPath = pagesContext.pageInfo?.route ?? "";
   const revalidatePath = `/${language}/_site_${site}${isrPath}`;
-  const matchedSite = {
-    name: "Not found",
-    url: "Not found",
-  };
-  let renderingHost = matchedSite.url;
 
-  const targetSiteName = site; // Change this to the site name you want to match
-
-  fetch("sites.json")
-    .then((response) => response.json())
-    .then((data) => {
-      const matchedSite = data.sites.find(
-        (site: { name: string; url: string }) => site.name === targetSiteName
-      );
-
-      if (matchedSite) {
-        renderingHost = matchedSite.url;
-      } else {
-        console.log(`Site "${targetSiteName}" not found.`);
-      }
-    })
-    .catch((error) => console.error("Error fetching JSON:", error));
+  const renderingHost = getRenderingHost(site);
 
   return (
     <Box textAlign="left" p={4}>
@@ -197,7 +178,7 @@ export default function MarketplaceSDKComponent() {
             <strong>Revalidate path:</strong> {revalidatePath}
           </Text>
           <Text>
-            <strong>Rendering host:</strong> {matchedSite.url}
+            <strong>Rendering host:</strong> {renderingHost?.url}
           </Text>
         </Box>
       )}
