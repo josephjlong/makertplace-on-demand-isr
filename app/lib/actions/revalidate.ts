@@ -15,7 +15,6 @@ export async function triggerRevalidation({ language, site, isrPath }: { languag
   console.log(`${siteURL}/api/revalidate-path?secret=${secret}&path=/${language}/_site_${site}${isrPath}`);
 
   if (!res.ok) {
-    // throw new Error(`Failed to revalidate: ${res.statusText}`);
     console.log(`Failed to revalidate: ${res.statusText}`);
 
     return await { success: false };
