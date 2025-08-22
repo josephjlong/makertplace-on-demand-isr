@@ -1,13 +1,10 @@
 import sitesData from "@/data/sites.json";
 
-export function getRenderingHost(site: string): string {
+const siteMap: Record<string, string> = {};
+sitesData.sites.forEach((siteObj: { name: string; url: string }) => {
+  siteMap[siteObj.name] = siteObj.url;
+});
 
-       const matchedSite = sitesData.sites.find(
-    (siteObj: { name: string; url: string }) => siteObj.name === site
-  ) || {
-    name: "Not found",
-    url: "Not found",
-  };
-      
-  return matchedSite.url;
+export function getRenderingHost(site: string): string {
+  return siteMap[site] || "Not found";
 }
