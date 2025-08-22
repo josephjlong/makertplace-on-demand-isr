@@ -125,8 +125,14 @@ export default function MarketplaceSDKComponent() {
   };
 
   useEffect(() => {
-    if (isClientSDKInitialized) {
-      fetchPagesContext();
+    if (isClientSDKInitialized && clientRef.current) {
+      clientRef.current.query("pages.context", {
+        subscribe: true,
+        onSuccess: (data) => {
+          console.log("[HostSDK] Triggered client event: pages.context", data);
+          setPagesContext(data);
+        },
+      });
     }
   }, [isClientSDKInitialized]);
 
@@ -148,16 +154,27 @@ export default function MarketplaceSDKComponent() {
       </Heading>
 
       <Stack direction="row" spacing={4} mb={4}>
-        <Button
+        {/* <Button
           colorScheme="teal"
           onClick={fetchPagesContext}
           isDisabled={isFetchingContext}
         >
           {isFetchingContext ? "Fetching..." : "Fetch page context"}
-        </Button>
-        <Button colorScheme="teal" onClick={handleClick} isDisabled={isPending}>
-          {isPending ? "Revalidating..." : "Trigger Revalidation"}
-        </Button>
+        </Button> */}
+
+        {renderingHost === "Not found" ? (
+          <Button colorScheme="teal" isDisabled>
+            Rendering host not found
+          </Button>
+        ) : (
+          <Button
+            colorScheme="teal"
+            onClick={handleClick}
+            isDisabled={isPending}
+          >
+            {isPending ? "Revalidating..." : "Trigger Revalidation"}
+          </Button>
+        )}
       </Stack>
 
       {pagesContext.pageInfo && (
