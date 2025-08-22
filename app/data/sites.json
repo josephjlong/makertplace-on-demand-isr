@@ -1,0 +1,9 @@
+{
+  "sites": [
+    {
+      "name": "sxastarter",
+      "url": "https://josl-marketplace-demo-dev-sxastarte.vercel.app"
+    },
+    { "name": "harris-test-site", "url": "https://xmcloud.sitecore.com" }
+  ]
+}

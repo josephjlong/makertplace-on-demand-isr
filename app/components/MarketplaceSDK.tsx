@@ -178,7 +178,7 @@ export default function MarketplaceSDKComponent() {
             <strong>Revalidate path:</strong> {revalidatePath}
           </Text>
           <Text>
-            <strong>Rendering host:</strong> {renderingHost?.url}
+            <strong>Rendering host:</strong> {renderingHost}
           </Text>
         </Box>
       )}

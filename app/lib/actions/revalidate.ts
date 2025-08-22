@@ -3,11 +3,12 @@
 import { getRenderingHost } from "@/lib/utils/renderingHost";
 
 export async function triggerRevalidation({ language, site, isrPath }: { language: string; site: string; isrPath: string })  {
+  const secret = process.env.REVALIDATE_SECRET;
   const renderingHost = getRenderingHost(site);
 
   let res;
   try {
-    res = await fetch(`${renderingHost?.url}/api/revalidate-path?secret=${renderingHost?.revalidateSecret}&path=/${language}/_site_${site}${isrPath}`, {
+    res = await fetch(`${renderingHost}/api/revalidate-path?secret=${secret}&path=/${language}/_site_${site}${isrPath}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
