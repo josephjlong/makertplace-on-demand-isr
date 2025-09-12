@@ -1,6 +1,6 @@
 # Marketplace On-demand ISR
 
-An on-demand ISR application for the Sitecore Marketplace. This is a sample application showingcasing how to create an XM Cloud page context panel extension to be leveraged in the Sitecore Marketplace with XM Cloud.
+An On-demand Incremental Static Regeneration (ISR) application for the Sitecore Marketplace that empowers business users to manually trigger revalidation within XM Cloud. This is a sample application showingcasing how to create an XM Cloud page context panel extension to be leveraged in the Sitecore Marketplace with XM Cloud.
 
 ## 📦 Running the Application Locally
 
