@@ -22,7 +22,7 @@ You can run this application locally, however note that it requires loading with
 3. **Set env variable**
 
    ```javascript
-   REVALIDATE_SECRET = your - secret;
+   REVALIDATE_SECRET = YourSecret;
    ```
 
 4. **Configure sites at /app/data/sites.json**
